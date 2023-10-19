@@ -41,20 +41,24 @@ public class Main {
                         }
                     })
                     .max(Comparator.comparingDouble(funko -> Double.parseDouble(funko.getPrecio())));
+            System.out.println("funco mas caro"+funkoMasCaro);
 
 
 
 
 
-            //encontrar la media de precio de los funkos
-            //utilizamos optional para ahorrar la implementacion de un is present
-            OptionalDouble mediaFunkos = listaFunkos.stream()
-                    .mapToDouble(funko -> Double.valueOf(funko.getPrecio())) // Convierte las cadenas a valores double
-                    .average(); // Calcula la media
-
-            System.out.println("La media del precio de los Funkos es:"+mediaFunkos);
-
-
+//            //encontrar la media de precio de los funkos
+//            //utilizamos optional para ahorrar la implementacion de un is present
+//
+//            OptionalDouble mediaFunkos = listaFunkos.stream()
+//                    .mapToDouble(funko -> Double.parseDouble(funko.getPrecio())) // Convierte las cadenas a valores double
+//                    .average(); // Calcula la media
+//
+//            if(mediaFunkos.isPresent()) {
+//                System.out.println("La media del precio de los Funkos es:" + mediaFunkos);
+//            }
+//
+//
             // Imprimir los Funkos agrupados por modelo
             //hazemos un mapeo de el array y una coleccion para agrupar los funkos por modelos
             Map<String, List<Funko>> funkosPorModelos=listaFunkos.stream()
@@ -66,7 +70,7 @@ public class Main {
                 listaFunkos.forEach(funko -> System.out.println("   " + funko));//hazemos otro bucle en el que recorremos
             });                                                                 //el array de objetos funko principal  e imprimimos los que sean de ese modelo
 
-
+//
 
             //NUMEROS DE FUNKO POR MODELO
             Map<String, Long> cantidadFunkosPorModelo = listaFunkos.stream()

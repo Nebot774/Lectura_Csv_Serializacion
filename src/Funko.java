@@ -52,4 +52,17 @@ class Funko {
     public void setFechaLanzamiento(String fechaLanzamiento) {
         this.fechaLanzamiento = fechaLanzamiento;
     }
+
+    @Override
+    public String toString() {
+        return "Funko{" +
+                "COD='" + COD + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", precio='" + precio + '\'' +
+                ", fechaLanzamiento='" + fechaLanzamiento + '\'' +
+                '}';
+    }
 }
+
+
