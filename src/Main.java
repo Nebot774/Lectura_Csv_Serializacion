@@ -13,35 +13,42 @@ public class Main {
 
     public static void main(String[] args) {
 
-        try(Stream<String> contenidoFunkos= Files.lines(Path.of("/home/adrcle/Descargas/funkos.csv"))){
+        // Usamos un bloque try-with-resources para asegurar que el Stream se cierre automáticamente después de su uso.
+        try (Stream<String> contenidoFunkos = Files.lines(Path.of("/home/adrcle/Descargas/funkos.csv"))) {
 
-            List<Funko> listaFunkos=contenidoFunkos
-                    .map(l->{
-                        List<String> funkows=Arrays.asList(l.split(delimitador));
+            // Convertimos el Stream de líneas del archivo CSV en una lista de objetos Funko.
+            List<Funko> listaFunkos = contenidoFunkos
+                    .map(l -> {
+                        // Dividimos cada línea del archivo CSV usando el delimitador para obtener los valores individuales.
+                        List<String> funkows = Arrays.asList(l.split(delimitador));
 
-                        String COD=funkows.get(0);
-                        String nombre=funkows.get(1);
-                        String modelo=funkows.get(2);
-                        String precio=funkows.get(3);
-                        String fecha_lanzamiento=funkows.get(4);
+                        // Extraemos los valores de la lista para inicializar los campos del objeto Funko.
+                        String COD = funkows.get(0);
+                        String nombre = funkows.get(1);
+                        String modelo = funkows.get(2);
+                        String precio = funkows.get(3);
+                        String fecha_lanzamiento = funkows.get(4);
 
-                        return new Funko(COD,nombre,modelo,precio,fecha_lanzamiento);
-
+                        // Retornamos un nuevo objeto Funko con los valores extraídos.
+                        return new Funko(COD, nombre, modelo, precio, fecha_lanzamiento);
                     }).toList();
 
-
-
+            // Buscamos el objeto Funko más caro de la lista.
             Optional<Funko> funkoMasCaro = listaFunkos.stream()
                     .filter(funko -> {
                         try {
+                            // Intentamos convertir el precio a Double para asegurar que sea un número válido.
                             Double.parseDouble(funko.getPrecio());
                             return true; // El precio es un número válido
                         } catch (NumberFormatException e) {
                             return false; // El precio no es un número válido
                         }
                     })
+                    // Comparamos los precios de los Funkos para encontrar el máximo.
                     .max(Comparator.comparingDouble(funko -> Double.parseDouble(funko.getPrecio())));
-            System.out.println("funco mas caro"+funkoMasCaro);
+
+            // Imprimimos el Funko más caro.
+            System.out.println("Funko más caro: " + funkoMasCaro);
 
 
 
